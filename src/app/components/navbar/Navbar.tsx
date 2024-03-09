@@ -19,7 +19,7 @@ const Navbar = () => {
         <div className="w-full flex flex-row justify-between p-4">
           {/* logo  */}
           <div className={style.font_lily}>
-            <h2 className="text-3xl text-[#D9ED92]">Trippify</h2>
+            <h2 className="text-3xl text-[#D9ED92]">Blogsphere</h2>
           </div>
           <div className="hidden md:block">
             <ul className="h-full font-semibold flex flex-row items-center justify-center text-white">
