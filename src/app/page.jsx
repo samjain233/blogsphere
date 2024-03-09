@@ -5,8 +5,8 @@ import InfoCards from "../../components/infoCards/InfoCards";
 export default function Home() {
   return (
     <>
-    <Navbar />
-    <InfoCards />
+      <Navbar />
+      <InfoCards />
     </>
   );
 }
