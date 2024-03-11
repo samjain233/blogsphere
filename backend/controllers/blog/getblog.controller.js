@@ -7,5 +7,5 @@ export const getBlogController = asyncHandler(async (req, res) => {
 
     const blogData = await Blog.findOne({slug:slug});
     
-    res.status(200).json(new ApiResponse(200, "blog created",blogData));
+    res.status(200).json(new ApiResponse(200, "getblog",blogData));
 });
