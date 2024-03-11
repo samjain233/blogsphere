@@ -10,14 +10,19 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    keyword: {
-        type: String,
-        required: true
+    keywords: {
+        type: Array,
+        required: true,
+        default:[]
     },
     content: {
         type: String,
         required: true
-    }
+    },
+    imageUrl: {
+        type: String,
+    },
+
 });
 
 const Blog = mongoose.model("Blog", blogSchema);
