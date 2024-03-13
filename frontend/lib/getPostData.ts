@@ -11,19 +11,20 @@ const getPostByName = async (fileName: string): Promise<any> => {
       Accept: "application/vnd.github+json",
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       "X-GitHub-Api-Version": "2022-11-28",
-    }
+    },
   });
 
   if (!res.ok) {
     return undefined;
   }
   const rawMDX = await res.text();
+  console.log(rawMDX);
 
   // if file not exists
   if (rawMDX === "404: Not Found") return undefined;
 
   //converting file to html code
-  // console.log(rawMDX);
+  console.log(rawMDX);
 
   const { content, frontmatter } = await compileMDX<{
     title: string | undefined;

@@ -47,7 +47,7 @@ const wrapper: string =
   "sm:max-w-screen-sm md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl mx-auto";
 
 const slug = async ({ params: { slug } }: paramsType) => {
-  const res = await fetch(process.env.SERVER + "/api/getblog?slug=" + slug);
+  const res = await fetch(process.env.SERVER + "/api/getblog?slug=" + slug ,{ cache: 'no-store' });
   if (!res.ok) {
     return undefined;
   }
