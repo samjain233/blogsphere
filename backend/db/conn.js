@@ -11,7 +11,7 @@ const connectDB = async () => {
         );
     } catch (error) {
         console.log("MONGODB connection error ", error);
-        res.status(500).json({ status: false, error: "Internal Server Error" });
+        // res.status(500).json({ status: false, error: "Internal Server Error" });
     }
 };
 
