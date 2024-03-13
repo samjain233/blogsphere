@@ -8,6 +8,9 @@ const nextConfig = {
         port: "",
         pathname: "/samjain233/blog-server/main/images/**",
       },
+      {
+        hostname: 'source.unsplash.com'
+      },
     ],
   },
 };
