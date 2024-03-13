@@ -1,4 +1,4 @@
-import Navbar from "../components/navbar/Navbar";
+"use client";
 import AdminMain from "../components/adminComponents/AdminMain";
 
 const AdminPanel = () => {

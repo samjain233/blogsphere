@@ -7,5 +7,6 @@ export async function GET(request: NextRequest) {
   if (query === null)
     return Response.json({ status: false, msg: "slug not found" });
   const blogData = await getBlog(query);
+  // console.log(blogData);
   return Response.json(blogData);
 }
