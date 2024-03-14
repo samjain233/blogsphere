@@ -10,12 +10,16 @@ import { UploadImageToFirebase } from "../../../../../lib/uploadImage";
 import { FaEye } from "react-icons/fa";
 import { FaRegImage } from "react-icons/fa6";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import toast from "react-hot-toast";
+import CreateBlogApi from "../../../../../api/CreateBlogApi";
 
 const PostContent = ({ markdown, setMarkdown, setDisplayPost }) => {
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [keywords, setKeywords] = useState([]);
   const [category, setCategory] = useState("");
+  const [mainImageUrl, setMainImageUrl] = useState(null);
+
   useEffect(() => {
     setSlug(() => {
       return title;
@@ -26,6 +30,9 @@ const PostContent = ({ markdown, setMarkdown, setDisplayPost }) => {
     try {
       const imageUrl = await UploadImageToFirebase(file);
       if (imageUrl) {
+        if (mainImageUrl === null) {
+          setMainImageUrl(imageUrl);
+        }
         const imageMarkdown = `<img src="${imageUrl}" alt="" ></img>`;
         setMarkdown(markdown + imageMarkdown);
       }
@@ -34,7 +41,25 @@ const PostContent = ({ markdown, setMarkdown, setDisplayPost }) => {
     }
   };
 
-  const handleUpload = async () => {};
+  const handleUpload = async () => {
+    if (title === "" || slug === "" || markdown === "") {
+      toast.error("please enter some content to post");
+      return;
+    }
+    const token = localStorage.getItem("token");
+    if (token) {
+      const data = await CreateBlogApi({
+        title,
+        slug,
+        keywords,
+        category,
+        content: markdown,
+        token,
+        imageUrl: mainImageUrl,
+      });
+      console.log(data);
+    }
+  };
   return (
     <>
       <PostTitle title={title} setTitle={setTitle} />
@@ -69,7 +94,7 @@ const PostContent = ({ markdown, setMarkdown, setDisplayPost }) => {
         <div
           className="text-2xl p-4 my-2 bg-gray-500 text-white rounded-full cursor-pointer hover:bg-gray-600 transition-colors duration-200"
           onClick={() => {
-            handleImageUpload();
+            handleUpload();
           }}
         >
           <FaCloudUploadAlt />

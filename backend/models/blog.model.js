@@ -25,6 +25,9 @@ const blogSchema = new mongoose.Schema({
     imageUrl: {
         type: String,
     },
+    category:{
+        type:String,
+    },
     active: {
         type: Boolean,
         default: true,
