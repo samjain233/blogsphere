@@ -3,9 +3,9 @@ import { asyncHandler } from "../../lib/AsyncHandler.js";
 import Blog from "../../models/blog.model.js";
 
 export const createBlogController = asyncHandler(async (req, res) => {
-    const { slug, title, content, imageUrl, keywords, } = req.body;
+    const { postId,message} = req.body;
     const user=req.user;
-
+    const username=user.username;
 
     const blog = await Blog.create({
         slug,
