@@ -7,9 +7,7 @@ import { authMiddleware } from './../../middleware/auth.middleware.js';
 import { getContentCategoryController } from '../../controllers/blog/getcontentcategory.controller.js';
 import { deleteBlogController } from '../../controllers/blog/deleteblog.controller.js';
 const router = express.Router();
-
-
-router.post("/postblog",authMiddleware,createBlogController );
+router.post("/postblog",authMiddleware,createBlogController);
 router.post("/getblog",getBlogController );
 router.get("/getallblogs", getallBlogsController); 
 router.put("/updateactiveblog", authMiddleware,updateactiveBlogController);

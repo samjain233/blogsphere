@@ -14,7 +14,7 @@ export const updateactiveBlogController = asyncHandler(async (req,res) => {
          throw new ApiError(404, error);
     }
     if(post.author!==user._id){
-        const error="user not correct"
+        const error="incorrect user"
          throw new ApiError(404, error);
     }
     post.active = isActive;
