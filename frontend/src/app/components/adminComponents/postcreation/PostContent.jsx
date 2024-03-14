@@ -21,9 +21,12 @@ const PostContent = ({ markdown, setMarkdown, setDisplayPost }) => {
   const [mainImageUrl, setMainImageUrl] = useState(null);
 
   useEffect(() => {
-    setSlug(() => {
-      return title;
-    });
+    let slugifiedTitle = title.toLowerCase().replace(/\s+/g, '-');
+  // Add a hyphen and random numbers if the title is not empty
+  if (slugifiedTitle) {
+    slugifiedTitle += `-${Math.floor(Math.random() * 1000)}`;
+  }
+  setSlug(slugifiedTitle);
   }, [title]);
 
   const handleImageUpload = async (file) => {
