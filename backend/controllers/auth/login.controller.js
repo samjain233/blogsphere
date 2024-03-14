@@ -71,8 +71,7 @@ export const loginController = asyncHandler(async (req, res) => {
 
     const message = "login successfull.";
     const data = {
-        accessToken,
-        refreshToken,
+        accessToken
     };
     res.status(200).json(new ApiResponse(200, message, data));
 });

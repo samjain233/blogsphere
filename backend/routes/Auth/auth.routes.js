@@ -12,7 +12,7 @@ import { forgetPasswordController } from "../../controllers/auth/forgetPassword.
 
 const router = express.Router();
 
-router.post("/admin/register", registerAdminController);
+router.post("/register", registerAdminController);
 router.post("/login", loginController);
 router.post("/forgetpassword", forgetPasswordController);
 

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { HiMenu } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 
-const navItems = ["Home", "Blogs", "About Us", "Contact"];
+const navItems = ["Home", "Categories"];
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
@@ -31,6 +31,9 @@ const Navbar = () => {
                   <Link href="/">{item}</Link>
                 </li>
               ))}
+              <li className="px-2 mx-4 hover:text-[#D9ED92] relative  before:content-[''] before:absolute before:bg-[#D9ED92] before:h-[3px] before:w-0 before:left-0 before:bottom-[-8px] before:transition-[0.3s] before:duration-300 hover:before:w-full">
+                <Link href="/auth">LogIn</Link>
+              </li>
             </ul>
           </div>
           <div
