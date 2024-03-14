@@ -4,11 +4,12 @@ import { updateactiveBlogController } from '../../controllers/blog/updateactiveb
 import { getBlogController } from './../../controllers/blog/getblog.controller.js';
 import express from "express";
 import { authMiddleware } from './../../middleware/auth.middleware.js';
+import { getContentCategoryController } from '../../controllers/blog/getcontentcategory.controller.js';
 const router = express.Router();
 router.post("/postblog",authMiddleware,createBlogController );
 router.post("/getblog",getBlogController );
 router.get("/getallblogs", getallBlogsController);
 router.put("/updateactiveblog", authMiddleware,updateactiveBlogController);
-
+router.get("/createcontent",getContentCategoryController);
 
 export default router;
