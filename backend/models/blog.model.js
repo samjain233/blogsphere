@@ -23,7 +23,7 @@ const blogSchema = new mongoose.Schema({
         type: String,
     },
     active: {
-        Type: Boolean,
+        type: Boolean,
         default: true,
     },
     comments: [
@@ -37,7 +37,7 @@ const blogSchema = new mongoose.Schema({
         { type: mongoose.Schema.Types.ObjectId, ref: "User", default: [] },
     ],
     views: {
-        Type: Number,
+        type: Number,
         default: 0,
     },
     monthlyViews: [

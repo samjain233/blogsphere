@@ -16,7 +16,7 @@ const Card = () => {
           />
         </div>
         <div className="bg-white">
-          <h2 className="text-xl font-bold">heading</h2>
+          <h2 className="text-lg font-bold sm:text-xl">heading</h2>
           <p className="text-sm">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
           </p>
