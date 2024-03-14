@@ -1,14 +1,13 @@
 import axios from "axios";
 const serverUrl = process.env.NEXT_PUBLIC_SERVER;
 
-const loginUrl = "api/auth/login";
+const getBlogUrl = "api/auth/getblog";
 
-const LoginUserApi = async (data) => {
-  const { email, password } = data;
+const GetBlogApi = async (data) => {
+  const {slug } = data;
   return await axios
-    .post(`${serverUrl}${loginUrl}`, {
-      email,
-      password,
+    .post(`${serverUrl}${getBlogUrl}`, {
+      slug
     })
     .then((res) => {
       return res.data;
@@ -18,4 +17,4 @@ const LoginUserApi = async (data) => {
       return { success: false, message: message };
     });
 };
-export default LoginUserApi;
+export default GetBlogApi;
