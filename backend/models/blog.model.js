@@ -50,6 +50,8 @@ const blogSchema = new mongoose.Schema({
             default: [],
         },
     ],
+},{
+    timestamps: true,
 });
 
 const Blog = mongoose.model("Blog", blogSchema);
