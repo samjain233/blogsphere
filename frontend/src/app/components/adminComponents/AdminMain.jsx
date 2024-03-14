@@ -5,7 +5,7 @@ import CreatePost from "./postcreation/CreatePost";
 import ManagePostHome from "./managepost/ManagePostHome";
 
 const AdminMain = () => {
-  const [tab, setTab] = useState("Manage Post");
+  const [tab, setTab] = useState("Dashboard");
   return (
     <>
       <div className="w-full grid grid-cols-5">
