@@ -45,13 +45,13 @@ export const registerAdminController = asyncHandler(async (req, res) => {
     }
 
     // Password complexity validation
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
     if (!password.match(passwordRegex)) {
         const error =
-            "Password must be at inimum eight characters, at least one letter and one number.";
+            "Password must be at minimum eight characters, at least one letter and one number.";
         throw new ApiError(400, error);
     }
-    //--------------------------------------------------------------
+    //-----------------------------------------------------------------
 
     //existing user check------------------------------------------
     email = email.toLowerCase();
@@ -77,11 +77,11 @@ export const registerAdminController = asyncHandler(async (req, res) => {
     //checking user created ------------------------------------------------
     const checkCreatedUser = user?._id;
     if (checkCreatedUser) {
-        const emailToken = await createEmailVerificationToken(user._id);
-        console.log(emailToken);
-        sendMailService(user.email,"email Verification", emailToken);
+        // const emailToken = await createEmailVerificationToken(user._id);
+        // console.log(emailToken);
+        // sendMailService(user.email,"email Verification", emailToken);
         const message =
-            "User Created Successfully , a verification link has been sent to your email";
+            "User Created Successfully, Login to continue";
         res.status(201).json(new ApiResponse(201, message));
     } else {
         throw new ApiError(500, "Some Error Occured");
