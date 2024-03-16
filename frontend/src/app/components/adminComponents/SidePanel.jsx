@@ -1,7 +1,9 @@
+import { useRouter } from "next/navigation";
 import React from "react";
 const list = ["Dashboard", "Create Post", "Manage Post", "Home", "Logout"];
 
 const SidePanel = ({ tab, setTab, setBlogId }) => {
+  const router = useRouter();
   return (
     <>
       <div className="bg-gray-200 p-2 h-screen shadow-md sticky top-0">
@@ -14,6 +16,9 @@ const SidePanel = ({ tab, setTab, setBlogId }) => {
               } p-4 mt-2 cursor-pointer hover:bg-gray-400 transition-all duration-200`}
               onClick={() => {
                 if (element === "Create Post") setBlogId(null);
+                if (element === "Home") {
+                  router.push("/");
+                }
                 setTab(element);
               }}
             >
