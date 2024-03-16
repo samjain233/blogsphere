@@ -38,7 +38,7 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
     //-------------------------------------------------------------------------------
 
     //checking existance of user in database---------------------------------------
-    const user = await User.findById(userData._id, { email: 1, isVerified: 1 });
+    const user = await User.findById(userData._id);
     if (!user) {
         const error = "Unauthorized - Invalid token.";
         throw new ApiError(401, error);

@@ -1,12 +1,13 @@
 "use client";
+import React from "react";
 import AdminMain from "../components/adminComponents/AdminMain";
 
-const AdminPanel = () => {
+const Dashboard = () => {
   return (
-    <>
+    <div>
       <AdminMain />
-    </>
+    </div>
   );
 };
 
-export default AdminPanel;
+export default Dashboard;

@@ -1,14 +1,21 @@
 import axios from "axios";
 const serverUrl = process.env.NEXT_PUBLIC_SERVER;
 
-const getBlogUrl = "api/blog/getblogusingid";
+const updateBlogUrl = "api/blog/updateblog";
 
-const GetBlogApi = async (data) => {
-  const { blogId, token } = data;
+const UpdateBlogApi = async (data) => {
+  const { slug, title, content, imageUrl, keywords, token, category, blogId } =
+    data;
   return await axios
     .post(
-      `${serverUrl}${getBlogUrl}`,
+      `${serverUrl}${updateBlogUrl}`,
       {
+        slug,
+        title,
+        content,
+        imageUrl,
+        keywords,
+        category,
         blogId,
       },
       {
@@ -23,4 +30,4 @@ const GetBlogApi = async (data) => {
       return { success: false, message: message };
     });
 };
-export default GetBlogApi;
+export default UpdateBlogApi;

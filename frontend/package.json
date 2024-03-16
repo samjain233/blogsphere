@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@uiw/react-md-editor": "^4.0.4",
     "axios": "^1.6.7",
     "firebase": "^10.8.1",
     "mongoose": "^7.6.3",

@@ -4,12 +4,13 @@ const serverUrl = process.env.NEXT_PUBLIC_SERVER;
 const getAllBlogsUrl = "api/auth/getallblogs";
 
 const GetAllBlogsApi = async (data) => {
-  const {slug} = data;
+  const { slug } = data;
   return await axios
-    .get(`${serverUrl}${getAllBlogsUrl}`, {
-      slug
+    .post(`${serverUrl}${getAllBlogsUrl}`, {
+      slug,
     })
     .then((res) => {
+      console.log(res.data);
       return res.data;
     })
     .catch((err) => {

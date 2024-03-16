@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        index:true,
+        index: true,
         required: true,
         unique: true,
     },
@@ -33,6 +33,13 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: true,
     },
+    blogs: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Blog",
+            default: [],
+        },
+    ],
 });
 
 const User = mongoose.model("User", userSchema);

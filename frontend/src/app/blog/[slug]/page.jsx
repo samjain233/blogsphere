@@ -1,71 +1,66 @@
 import React from "react";
-import { getPostByName } from "../../../../lib/getPostData";
+
 import Navbar from "@/app/components/navbar/Navbar";
 import InfoCards from "@/app/components/infoCards/InfoCards";
-import { getBlog } from "../../../../lib/getBlog";
 import { notFound } from "next/navigation";
-import BlurHashImage from "@/app/components/customImage/BlurHashImage";
+import { getBlogHtml } from "../../../../lib/getBlogHtml";
 
-type paramsType = {
-  params: {
-    slug: string;
-  };
-};
+export async function generateMetadata({ params: { slug } }) {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_SERVER + "api/blog/getblog?slug=" + slug,
+    {
+      cache: "no-cache",
+    }
+  );
 
-export const revalidate = 3600;
-
-export async function generateStaticParams() {
-  const data = [
-    { slug: "dfafadsf" },
-    { slug: "best-places-to-visit-in-prayagraj" },
-  ];
-  return data;
-}
-
-export async function generateMetadata({ params: { slug } }: paramsType) {
-  const res = await fetch(process.env.SERVER + "/api/getblog?slug=" + slug);
   if (!res.ok) {
-    return undefined;
+    return {
+      title: "Post Not Found",
+    };
   }
   const data = await res.json();
-  const { status, data: blogData } = data;
-
-  if (!status) {
+  const { success, data: BlogData } = data;
+  if (success === false) {
     return {
       title: "Post Not Found",
     };
   }
 
   return {
-    title: blogData.title,
-    description: blogData.keyword,
-    keywords: blogData.title,
+    title: BlogData?.title,
+    description: BlogData?.category,
+    keywords: BlogData?.title,
   };
 }
 
-const wrapper: string =
+const wrapper =
   "sm:max-w-screen-sm md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg 2xl:max-w-screen-xl mx-auto";
 
-const slug = async ({ params: { slug } }: paramsType) => {
-  const res = await fetch(process.env.SERVER + "/api/getblog?slug=" + slug ,{ cache: 'no-store' });
+const slug = async ({ params: { slug } }) => {
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_SERVER + "api/blog/getblog?slug=" + slug,
+    {
+      cache: "no-cache",
+    }
+  );
+
   if (!res.ok) {
-    return undefined;
-  }
-  const data = await res.json();
-  const { status, data: blogData } = data;
-  if (status === false) {
     notFound();
   }
-  const { heading, blogUrl, imgUrl, title, blurHash } = blogData;
-  const fileName = blogUrl;
-  const { content } = await getPostByName(fileName);
+  const data = await res.json();
+  const { success, data: BlogData } = data;
+  if (success === false) {
+    notFound();
+  }
+  const { content } = BlogData;
+  const { content: reactComponents } = await getBlogHtml(content);
   return (
     <>
       <Navbar />
       <div className={`flex flex-col md:flex-row mb-10 ${wrapper}`}>
         {/* content  */}
         <div className="mt-8 px-4 flex-auto w-full md:w-2/3">
-          <div className="my-2">
+          {/* <div className="my-2">
             <div className="my-8">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
                 {heading}
@@ -79,10 +74,10 @@ const slug = async ({ params: { slug } }: paramsType) => {
                 height="400px"
               />
             </div>
-          </div>
+          </div> */}
 
           <div className="main">
-            <article className="info_body">{content}</article>
+            <article className="info_body">{reactComponents}</article>
           </div>
           <hr className="w-full h-1 bg-[#184E77] mt-8" />
         </div>

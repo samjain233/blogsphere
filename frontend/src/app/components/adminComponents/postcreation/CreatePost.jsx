@@ -2,8 +2,22 @@ import React, { useState } from "react";
 import PostContent from "./PostContent";
 import PostDisplay from "./PostDisplay";
 
-const CreatePost = () => {
-  const [markdown, setMarkdown] = useState("");
+const CreatePost = ({
+  markdown,
+  setMarkdown,
+  title,
+  setTitle,
+  slug,
+  setSlug,
+  keywords,
+  setKeywords,
+  category,
+  setCategory,
+  mainImageUrl,
+  setMainImageUrl,
+  blogId,
+  setTab
+}) => {
   const [displayPost, setDisplayPost] = useState(false);
   return (
     <>
@@ -13,6 +27,18 @@ const CreatePost = () => {
             markdown={markdown}
             setMarkdown={setMarkdown}
             setDisplayPost={setDisplayPost}
+            title={title}
+            setTitle={setTitle}
+            slug={slug}
+            setSlug={setSlug}
+            keywords={keywords}
+            setKeywords={setKeywords}
+            category={category}
+            setCategory={setCategory}
+            mainImageUrl={mainImageUrl}
+            setMainImageUrl={setMainImageUrl}
+            blogId={blogId}
+            setTab={setTab}
           />
         )}
         {displayPost && (

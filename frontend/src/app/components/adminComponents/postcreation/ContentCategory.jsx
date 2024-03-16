@@ -17,7 +17,7 @@ const categories = [
 const ContentCategory = ({ setCategory, category }) => {
   return (
     <>
-      <div className="w-full flex flex-wrap">
+      <div className="w-full flex flex-wrap mt-4">
         {categories.map((element) => {
           return (
             <div

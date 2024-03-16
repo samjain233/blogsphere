@@ -13,7 +13,7 @@ const getBlogHtml = async (markdown) => {
   });
 
   const blogPostObj = {
-    meta: { title: frontmatter.title ? frontmatter.title : "trippify" },
+    meta: { title: frontmatter.title ? frontmatter.title : "BlogSphere" },
     content,
   };
   return blogPostObj;

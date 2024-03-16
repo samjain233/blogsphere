@@ -122,7 +122,7 @@ const AuthComponent = () => {
             }}
             className="flex justify-center hover:underline cursor-pointer"
           >
-            Don't have an account? Register Now
+            <p>Dont have an account? Register Now</p>
           </div>
         )}
         {!isLogin && (

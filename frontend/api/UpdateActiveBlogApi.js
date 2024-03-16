@@ -1,16 +1,21 @@
 import axios from "axios";
 const serverUrl = process.env.NEXT_PUBLIC_SERVER;
 
-const loginUrl = "api/auth/updateactiveblog";
+const loginUrl = "api/blog/updateactiveblog";
 
 const UpdateActiveBlogApi = async (data) => {
-  const { postId, isActive, token  } = data;
+  const { postId, isActive, token } = data;
   return await axios
-    .put(`${serverUrl}${loginUrl}`, {
-        postId, isActive 
-    },{
-      Authorization: token
-  })
+    .put(
+      `${serverUrl}${loginUrl}`,
+      {
+        postId,
+        isActive,
+      },
+      {
+        headers: { Authorization: "Bearer " + token },
+      }
+    )
     .then((res) => {
       return res.data;
     })

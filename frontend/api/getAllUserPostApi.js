@@ -1,16 +1,14 @@
 import axios from "axios";
 const serverUrl = process.env.NEXT_PUBLIC_SERVER;
 
-const getBlogUrl = "api/blog/getblogusingid";
+const getAllUserBlogsUrl = "api/blog/getalluserblogs";
 
-const GetBlogApi = async (data) => {
-  const { blogId, token } = data;
+const GetAllBlogsApi = async (data) => {
+  const { token } = data;
   return await axios
     .post(
-      `${serverUrl}${getBlogUrl}`,
-      {
-        blogId,
-      },
+      `${serverUrl}${getAllUserBlogsUrl}`,
+      {},
       {
         headers: { Authorization: "Bearer " + token },
       }
@@ -23,4 +21,4 @@ const GetBlogApi = async (data) => {
       return { success: false, message: message };
     });
 };
-export default GetBlogApi;
+export default GetAllBlogsApi;

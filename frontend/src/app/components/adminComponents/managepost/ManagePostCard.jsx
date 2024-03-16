@@ -1,41 +1,119 @@
 import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-const imgUrl =
-  "https://images.unsplash.com/photo-1600065755981-a7f7f560ab04?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
 import { FaEye } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
 import { TbCircleLetterA } from "react-icons/tb";
 import { MdDelete } from "react-icons/md";
 
-const ManagePostCard = () => {
+import GetBlogApi from "../../../../../api/GetBlogApi";
+import UpdateActiveBlogApi from "../../../../../api/UpdateActiveBlogApi";
+import DeleteBlogApi from "../../../../../api/DeleteBlogApi";
+import toast from "react-hot-toast";
+
+const dummyImageUrl =
+  "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
+const ManagePostCard = ({
+  postData,
+  setMarkdown,
+  setTitle,
+  setSlug,
+  setKeywords,
+  setCategory,
+  setMainImageUrl,
+  setTab,
+  setBlogId,
+  reload,
+}) => {
+  const updateBlog = async () => {
+    const token = localStorage.getItem("token");
+    const data = await GetBlogApi({ blogId: postData._id, token });
+    setMarkdown(data.data.content);
+    setTitle(data.data.title);
+    setSlug(data.data.slug);
+    setKeywords(data.data?.keywords);
+    setCategory(data.data?.category);
+    setMainImageUrl(data.data?.imageUrl);
+    setBlogId(data.data._id);
+    setTab("Create Post");
+  };
+
+  const updateStatus = async () => {
+    const token = localStorage.getItem("token");
+    const data = await UpdateActiveBlogApi({
+      token,
+      isActive: !postData.active,
+      postId: postData._id,
+    });
+    if (data.success) {
+      toast.success(data.message);
+      reload();
+    } else {
+      toast.error(data.message);
+    }
+  };
+
+  const deleteBlog = async () => {
+    const token = localStorage.getItem("token");
+    const data = await DeleteBlogApi({
+      token,
+      blogId: postData._id,
+    });
+    if (data.success) {
+      toast.success(data.message);
+      reload();
+    } else {
+      toast.error(data.message);
+    }
+  };
+
+  const viewPost = () => {
+    const url = process.env.NEXT_PUBLIC_FRONTEND + "blog/" + postData.slug;
+    window.open(url, "_blank");
+  };
   return (
     <>
       <div>
         <div>
           <LazyLoadImage
-            src={imgUrl}
-            alt="shimla"
+            src={postData.imageUrl ? postData.imageUrl : dummyImageUrl}
+            alt="Blogsphere"
             className="w-full h-[180px] object-cover rounded-t-lg"
           />
         </div>
         <div className="bg-gray-400 p-2 text-white border-b-2 border-t-2 border-white">
-          <p>this is my post</p>
+          <p>{postData.title}</p>
         </div>
         <div className="grid grid-cols-5 justify-items-center rounded-b-lg bg-gray-400 p-2">
-          <div className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer">
+          <div
+            className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer"
+            onClick={viewPost}
+          >
             <FaEye />
           </div>
-          <div className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer">
+          <div
+            className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer"
+            onClick={updateBlog}
+          >
             <FaEdit />
           </div>
           <div className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer">
             <SiGoogleanalytics />
           </div>
-          <div className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer">
+          <div
+            className={`text-lg ${
+              postData.active ? "bg-gray-600" : ""
+            } text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer`}
+            onClick={updateStatus}
+          >
             <TbCircleLetterA />
           </div>
-          <div className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer">
+          <div
+            className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer"
+            onClick={deleteBlog}
+          >
             <MdDelete />
           </div>
         </div>

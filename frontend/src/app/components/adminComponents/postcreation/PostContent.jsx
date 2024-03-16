@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import SimpleMDE from "react-simplemde-editor";
-import "easymde/dist/easymde.min.css"; // Import SimpleMDE CSS
+import MDEditor from "@uiw/react-md-editor";
 import PostTitle from "./PostTitle";
 import PostSlug from "./PostSlug";
 import PostKeyword from "./PostKeyword";
@@ -12,21 +11,32 @@ import { FaRegImage } from "react-icons/fa6";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 import CreateBlogApi from "../../../../../api/CreateBlogApi";
+import UpdateBlogApi from "../../../../../api/UpdateBlogApi";
 
-const PostContent = ({ markdown, setMarkdown, setDisplayPost }) => {
-  const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState("");
-  const [keywords, setKeywords] = useState([]);
-  const [category, setCategory] = useState("");
-  const [mainImageUrl, setMainImageUrl] = useState(null);
-
+const PostContent = ({
+  markdown,
+  setMarkdown,
+  setDisplayPost,
+  title,
+  setTitle,
+  slug,
+  setSlug,
+  keywords,
+  setKeywords,
+  category,
+  setCategory,
+  mainImageUrl,
+  setMainImageUrl,
+  blogId,
+  setTab,
+}) => {
   useEffect(() => {
-    let slugifiedTitle = title.toLowerCase().replace(/\s+/g, '-');
-  // Add a hyphen and random numbers if the title is not empty
-  if (slugifiedTitle) {
-    slugifiedTitle += `-${Math.floor(Math.random() * 1000)}`;
-  }
-  setSlug(slugifiedTitle);
+    let slugifiedTitle = title.toLowerCase().replace(/\s+/g, "-");
+    // Add a hyphen and random numbers if the title is not empty
+    if (slugifiedTitle) {
+      slugifiedTitle += `-${Math.floor(Math.random() * 1000)}`;
+    }
+    setSlug(slugifiedTitle);
   }, [title]);
 
   const handleImageUpload = async (file) => {
@@ -36,7 +46,7 @@ const PostContent = ({ markdown, setMarkdown, setDisplayPost }) => {
         if (mainImageUrl === null) {
           setMainImageUrl(imageUrl);
         }
-        const imageMarkdown = `<img src="${imageUrl}" alt="" ></img>`;
+        const imageMarkdown = `<CustomImage src="${imageUrl}" alt="" />`;
         setMarkdown(markdown + imageMarkdown);
       }
     } catch (err) {
@@ -51,23 +61,60 @@ const PostContent = ({ markdown, setMarkdown, setDisplayPost }) => {
     }
     const token = localStorage.getItem("token");
     if (token) {
-      const data = await CreateBlogApi({
-        title,
-        slug,
-        keywords,
-        category,
-        content: markdown,
-        token,
-        imageUrl: mainImageUrl,
-      });
-      console.log(data);
+      if (!blogId) {
+        //creation of post
+        const data = await CreateBlogApi({
+          title,
+          slug,
+          keywords,
+          category,
+          content: markdown,
+          token,
+          imageUrl: mainImageUrl,
+        });
+        if (data.success) {
+          toast.success(data.message);
+          setTitle("");
+          setSlug("");
+          setKeywords([]);
+          setCategory("");
+          setMarkdown("");
+          setMainImageUrl(null);
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        //updation of post
+        const data = await UpdateBlogApi({
+          title,
+          slug,
+          keywords,
+          category,
+          content: markdown,
+          token,
+          imageUrl: mainImageUrl,
+          blogId,
+        });
+        if (data.success) {
+          toast.success(data.message);
+          setTitle("");
+          setSlug("");
+          setKeywords([]);
+          setCategory("");
+          setMarkdown("");
+          setMainImageUrl(null);
+          setTab("Manage Post");
+        } else {
+          toast.error(data.message);
+        }
+      }
     }
   };
   return (
     <>
       <PostTitle title={title} setTitle={setTitle} />
       <PostSlug slug={slug} />
-      <SimpleMDE value={markdown} onChange={(value) => setMarkdown(value)} />
+      <MDEditor value={markdown} onChange={(value) => setMarkdown(value)} />
       <ContentCategory category={category} setCategory={setCategory} />
       <PostKeyword keywords={keywords} setKeywords={setKeywords} />
       <div className="fixed bottom-4 right-4">

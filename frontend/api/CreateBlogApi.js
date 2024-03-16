@@ -4,7 +4,7 @@ const serverUrl = process.env.NEXT_PUBLIC_SERVER;
 const createBlogUrl = "api/blog/postblog";
 
 const CreateUserApi = async (data) => {
-  const { slug, title, content, imageUrl, keywords, token , category } = data;
+  const { slug, title, content, imageUrl, keywords, token, category } = data;
   return await axios
     .post(
       `${serverUrl}${createBlogUrl}`,
@@ -14,6 +14,7 @@ const CreateUserApi = async (data) => {
         content,
         imageUrl,
         keywords,
+        category,
       },
       {
         headers: { Authorization: "Bearer " + token },
