@@ -6,6 +6,8 @@ import { FaEdit } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
 import { TbCircleLetterA } from "react-icons/tb";
 import { MdDelete } from "react-icons/md";
+import { IoMdShare } from "react-icons/io";
+import { FaCopy } from "react-icons/fa6";
 
 import GetBlogApi from "../../../../../api/GetBlogApi";
 import UpdateActiveBlogApi from "../../../../../api/UpdateActiveBlogApi";
@@ -73,6 +75,21 @@ const ManagePostCard = ({
     const url = process.env.NEXT_PUBLIC_FRONTEND + "blog/" + postData.slug;
     window.open(url, "_blank");
   };
+
+  // const sharePost = () => {
+  //   console.log("sharing");
+  //   const url = process.env.NEXT_PUBLIC_FRONTEND + "blog/" + postData.slug;
+  //   const blogUrl = encodeURIComponent(url);
+  //   window.open(
+  //     `https://www.linkedin.com/sharing/share-offsite/?url=${blogUrl}`
+  //   );
+  // };
+
+  const copyToClipBoard = ()=>{
+    const url = process.env.NEXT_PUBLIC_FRONTEND + "blog/" + postData.slug;
+    navigator.clipboard.writeText(url);
+    toast.success("link copied to clipboard");
+  }
   return (
     <>
       <div>
@@ -85,6 +102,10 @@ const ManagePostCard = ({
         </div>
         <div className="bg-gray-400 p-2 text-white border-b-2 border-t-2 border-white">
           <p>{postData.title}</p>
+        </div>
+        <div className="bg-gray-400 p-2 text-white border-b-2 border-t-2 border-white flex justify-between">
+          <p>views {postData.views / 2}</p>
+          <p>upvotes {postData.upvotes.length}</p>
         </div>
         <div className="grid grid-cols-5 justify-items-center rounded-b-lg bg-gray-400 p-2">
           <div
@@ -99,8 +120,11 @@ const ManagePostCard = ({
           >
             <FaEdit />
           </div>
-          <div className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer">
-            <SiGoogleanalytics />
+          <div
+            className="text-lg  text-white p-2 rounded-full hover:bg-gray-500 cursor-pointer"
+            onClick={copyToClipBoard}
+          >
+            <FaCopy />
           </div>
           <div
             className={`text-lg ${

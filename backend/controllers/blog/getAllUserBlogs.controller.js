@@ -11,7 +11,7 @@ export const getAllUserBlogsController = asyncHandler(async (req, res) => {
     const allUserBlogs = await User.findById(userId)
         .populate({
             path: "blogs",
-            select: "title imageUrl active slug",
+            select: "title imageUrl active slug views upvotes",
         })
         .select({ blogs: 1 });
 

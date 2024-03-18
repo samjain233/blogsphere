@@ -19,6 +19,9 @@ const SidePanel = ({ tab, setTab, setBlogId }) => {
                 if (element === "Home") {
                   router.push("/");
                 }
+                if (element === "Logout") {
+                  router.push("/logout");
+                }
                 setTab(element);
               }}
             >
