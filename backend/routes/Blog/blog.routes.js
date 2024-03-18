@@ -11,7 +11,20 @@ import { getContentCategoryController } from "../../controllers/blog/getcontentc
 import { deleteBlogController } from "../../controllers/blog/deleteblog.controller.js";
 import { getAllUserBlogsController } from "../../controllers/blog/getAllUserBlogs.controller.js";
 import { updateBlogController } from "../../controllers/blog/updateBlog.controller.js";
-import { commentsBlogController } from "../../controllers/blog/commentsblog.controller.js";
+import {
+    commentsBlogController,
+    getCommentsBlogController,
+} from "../../controllers/blog/commentsblog.controller.js";
+import {
+    getNoOfUpvotes,
+    upvoteBlogController,
+} from "../../controllers/blog/upvoteblog.controller.js";
+import { getUserProfileController } from "../../controllers/follow/getUserProfile.controller.js";
+import {
+    checkIfIFollowController,
+    followUserController,
+    unfollowUserController,
+} from "../../controllers/follow/followUser.controller.js";
 
 const router = express.Router();
 
@@ -25,5 +38,14 @@ router.post("/deletetblog", authMiddleware, deleteBlogController);
 router.post("/getalluserblogs", authMiddleware, getAllUserBlogsController);
 router.post("/updateblog", authMiddleware, updateBlogController);
 router.post("/commentsblog", authMiddleware, commentsBlogController);
+router.post("/getcomments", getCommentsBlogController);
+router.post("/getcountupvotes", getNoOfUpvotes);
+router.post("/upvotepost", authMiddleware, upvoteBlogController);
+
+//getting userprofile - following system
+router.post("/userprofileview", getUserProfileController);
+router.post("/follow", authMiddleware, followUserController);
+router.post("/unfollow", authMiddleware, unfollowUserController);
+router.post("/checkififollow", authMiddleware, checkIfIFollowController);
 
 export default router;

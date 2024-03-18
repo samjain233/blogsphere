@@ -1,5 +1,6 @@
 import React from "react";
-
+import Comments from "../../components/comments/Comments";
+import Upvotes from "../../components/upvotes/Upvotes";
 import Navbar from "@/app/components/navbar/Navbar";
 import InfoCards from "@/app/components/infoCards/InfoCards";
 import { notFound } from "next/navigation";
@@ -60,22 +61,6 @@ const slug = async ({ params: { slug } }) => {
       <div className={`flex flex-col md:flex-row mb-10 ${wrapper}`}>
         {/* content  */}
         <div className="mt-8 px-4 flex-auto w-full md:w-2/3">
-          {/* <div className="my-2">
-            <div className="my-8">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-                {heading}
-              </h1>
-            </div>
-            <div className="w-full h-auto">
-              <BlurHashImage
-                src={imgUrl}
-                alt={title}
-                blurHash={blurHash}
-                height="400px"
-              />
-            </div>
-          </div> */}
-
           <div className="main">
             <article className="info_body">{reactComponents}</article>
           </div>
@@ -85,6 +70,12 @@ const slug = async ({ params: { slug } }) => {
         <div className="flex-auto w-1/3 hidden md:block">
           <aside></aside>
         </div>
+      </div>
+      <div className={`${wrapper} px-4 md:px-0`}>
+        <Upvotes slug={slug} />
+      </div>
+      <div className={`${wrapper} px-4 md:px-0`}>
+        <Comments slug={slug} />
       </div>
       <div className={`${wrapper} px-4 md:px-0`}>
         <InfoCards />

@@ -22,7 +22,7 @@ const Navbar = () => {
         { nav: "Home", route: "/" },
         { nav: "Categories", route: "/categories" },
         { nav: "profile", route: "/profile" },
-        { nav: "dashboard", route: "admin-panel" },
+        { nav: "dashboard", route: "/dashboard" },
         { nav: "Logout", route: "/logout" },
       ];
       setNavItems(navs);
@@ -50,7 +50,7 @@ const Navbar = () => {
                   key={item.nav}
                   className="px-2 mx-4 hover:text-[#D9ED92] relative  before:content-[''] before:absolute before:bg-[#D9ED92] before:h-[3px] before:w-0 before:left-0 before:bottom-[-8px] before:transition-[0.3s] before:duration-300 hover:before:w-full"
                 >
-                  <Link href={"/" + item.route}>{item.nav}</Link>
+                  <Link href={item.route}>{item.nav}</Link>
                 </li>
               ))}
             </ul>

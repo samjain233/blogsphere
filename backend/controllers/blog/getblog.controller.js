@@ -11,7 +11,7 @@ export const getBlogController = asyncHandler(async (req, res) => {
         const message = "blog not found";
         throw new ApiError(400, message);
     }
-    Blog.updateOne({ slug: slug }, { $inc: { views: 1 } });
+    await Blog.updateOne({ slug: slug }, { $inc: { views: 1 } });
     res.status(200).json(
         new ApiResponse(200, "blog found successfull", blogData),
     );

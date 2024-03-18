@@ -6,6 +6,7 @@ const blogSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
+            index: true,
         },
         author: {
             type: mongoose.Schema.Types.ObjectId,
