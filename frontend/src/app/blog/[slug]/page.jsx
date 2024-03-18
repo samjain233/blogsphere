@@ -53,7 +53,7 @@ const slug = async ({ params: { slug } }) => {
   if (success === false) {
     notFound();
   }
-  const { content } = BlogData;
+  const { content , author} = BlogData;
   const { content: reactComponents } = await getBlogHtml(content);
   return (
     <>
@@ -72,7 +72,7 @@ const slug = async ({ params: { slug } }) => {
         </div>
       </div>
       <div className={`${wrapper} px-4 md:px-0`}>
-        <Upvotes slug={slug} />
+        <Upvotes slug={slug} author={author}/>
       </div>
       <div className={`${wrapper} px-4 md:px-0`}>
         <Comments slug={slug} />

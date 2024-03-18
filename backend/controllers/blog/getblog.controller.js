@@ -6,7 +6,7 @@ import Blog from "../../models/blog.model.js";
 export const getBlogController = asyncHandler(async (req, res) => {
     const { slug } = req.query;
 
-    const blogData = await Blog.findOne({ slug: slug });
+    const blogData = await Blog.findOne({ slug: slug }).populate('author');
     if (!blogData) {
         const message = "blog not found";
         throw new ApiError(400, message);
