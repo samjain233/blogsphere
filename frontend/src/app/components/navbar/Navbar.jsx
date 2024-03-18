@@ -20,8 +20,6 @@ const Navbar = () => {
       setIsLoggedIn(true);
       const navs = [
         { nav: "Home", route: "/" },
-        { nav: "Categories", route: "/categories" },
-        { nav: "profile", route: "/profile" },
         { nav: "dashboard", route: "/dashboard" },
         { nav: "Logout", route: "/logout" },
       ];

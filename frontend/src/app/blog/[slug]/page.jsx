@@ -2,9 +2,9 @@ import React from "react";
 import Comments from "../../components/comments/Comments";
 import Upvotes from "../../components/upvotes/Upvotes";
 import Navbar from "@/app/components/navbar/Navbar";
-import InfoCards from "@/app/components/infoCards/InfoCards";
 import { notFound } from "next/navigation";
 import { getBlogHtml } from "../../../../lib/getBlogHtml";
+import InfoCards from "@/app/components/infoCards/InfoCards";
 
 export async function generateMetadata({ params: { slug } }) {
   const res = await fetch(
@@ -53,7 +53,7 @@ const slug = async ({ params: { slug } }) => {
   if (success === false) {
     notFound();
   }
-  const { content , author} = BlogData;
+  const { content, author } = BlogData;
   const { content: reactComponents } = await getBlogHtml(content);
   return (
     <>
@@ -72,13 +72,10 @@ const slug = async ({ params: { slug } }) => {
         </div>
       </div>
       <div className={`${wrapper} px-4 md:px-0`}>
-        <Upvotes slug={slug} author={author}/>
+        <Upvotes slug={slug} author={author} />
       </div>
-      <div className={`${wrapper} px-4 md:px-0`}>
+      <div className={`${wrapper} px-4 md:px-0 mb-8`}>
         <Comments slug={slug} />
-      </div>
-      <div className={`${wrapper} px-4 md:px-0`}>
-        <InfoCards />
       </div>
     </>
   );

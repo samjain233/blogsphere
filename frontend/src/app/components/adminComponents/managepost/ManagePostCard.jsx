@@ -85,11 +85,11 @@ const ManagePostCard = ({
   //   );
   // };
 
-  const copyToClipBoard = ()=>{
+  const copyToClipBoard = () => {
     const url = process.env.NEXT_PUBLIC_FRONTEND + "blog/" + postData.slug;
     navigator.clipboard.writeText(url);
     toast.success("link copied to clipboard");
-  }
+  };
   return (
     <>
       <div>

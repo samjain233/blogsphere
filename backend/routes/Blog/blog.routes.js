@@ -1,5 +1,5 @@
 import { createBlogController } from "../../controllers/blog/createblog.controller.js";
-import { getallBlogsController } from "../../controllers/blog/getallblogs.controller.js";
+
 import { updateactiveBlogController } from "../../controllers/blog/updateactiveblog.controller.js";
 import {
     getBlogController,
@@ -26,13 +26,18 @@ import {
     unfollowUserController,
 } from "../../controllers/follow/followUser.controller.js";
 import { dashboardAnalyticsController } from "../../controllers/blog/dashboardAnalytics.controller.js";
+import {
+    getFeaturedPostController,
+    getNewlyUploadedBlogsController,
+    getallTrendingBlogsController,
+} from "../../controllers/blog/getallblogs.controller.js";
+import { searchCompleteController } from "../../controllers/blog/searchComplete.controller.js";
 
 const router = express.Router();
 
 router.post("/postblog", authMiddleware, createBlogController);
 router.get("/getblog", getBlogController);
 router.post("/getblogusingid", authMiddleware, getBlogUsingblogIdController);
-router.get("/getallblogs", getallBlogsController);
 router.put("/updateactiveblog", authMiddleware, updateactiveBlogController);
 router.get("/createcontent", getContentCategoryController);
 router.post("/deletetblog", authMiddleware, deleteBlogController);
@@ -53,5 +58,13 @@ router.post("/userprofileview", getUserProfileController);
 router.post("/follow", authMiddleware, followUserController);
 router.post("/unfollow", authMiddleware, unfollowUserController);
 router.post("/checkififollow", authMiddleware, checkIfIFollowController);
+
+//display blog routes
+router.get("/trendingpost", getallTrendingBlogsController);
+router.get("/newlyuploadedpost", getNewlyUploadedBlogsController);
+router.get("/featuredblog", getFeaturedPostController);
+
+//search route
+router.post("/search",searchCompleteController);
 
 export default router;
