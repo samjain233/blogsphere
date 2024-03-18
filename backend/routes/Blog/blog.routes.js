@@ -25,6 +25,7 @@ import {
     followUserController,
     unfollowUserController,
 } from "../../controllers/follow/followUser.controller.js";
+import { dashboardAnalyticsController } from "../../controllers/blog/dashboardAnalytics.controller.js";
 
 const router = express.Router();
 
@@ -41,6 +42,11 @@ router.post("/commentsblog", authMiddleware, commentsBlogController);
 router.post("/getcomments", getCommentsBlogController);
 router.post("/getcountupvotes", getNoOfUpvotes);
 router.post("/upvotepost", authMiddleware, upvoteBlogController);
+router.post(
+    "/dashboardanalytics",
+    authMiddleware,
+    dashboardAnalyticsController,
+);
 
 //getting userprofile - following system
 router.post("/userprofileview", getUserProfileController);
