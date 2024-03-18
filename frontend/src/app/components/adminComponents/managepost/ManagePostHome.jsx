@@ -43,20 +43,22 @@ const ManagePostHome = ({
   return (
     <>
       <div className="grid grid-cols-4 gap-2 px-8 mt-8">
-        {myPost.map((post) => {
+        {myPost.map((post, index) => {
           return (
-            <ManagePostCard
-              postData={post}
-              setTitle={setTitle}
-              setSlug={setSlug}
-              setKeywords={setKeywords}
-              setCategory={setCategory}
-              setMainImageUrl={setMainImageUrl}
-              setMarkdown={setMarkdown}
-              setTab={setTab}
-              setBlogId={setBlogId}
-              reload={reload}
-            />
+            <div key={index}>
+              <ManagePostCard
+                postData={post}
+                setTitle={setTitle}
+                setSlug={setSlug}
+                setKeywords={setKeywords}
+                setCategory={setCategory}
+                setMainImageUrl={setMainImageUrl}
+                setMarkdown={setMarkdown}
+                setTab={setTab}
+                setBlogId={setBlogId}
+                reload={reload}
+              />
+            </div>
           );
         })}
       </div>

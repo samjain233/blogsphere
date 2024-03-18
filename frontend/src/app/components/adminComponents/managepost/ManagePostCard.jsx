@@ -104,7 +104,7 @@ const ManagePostCard = ({
           <p>{postData.title}</p>
         </div>
         <div className="bg-gray-400 p-2 text-white border-b-2 border-t-2 border-white flex justify-between">
-          <p>views {postData.views / 2}</p>
+          <p>views {postData.views}</p>
           <p>upvotes {postData.upvotes.length}</p>
         </div>
         <div className="grid grid-cols-5 justify-items-center rounded-b-lg bg-gray-400 p-2">

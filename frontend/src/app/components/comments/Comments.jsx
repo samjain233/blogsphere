@@ -34,9 +34,12 @@ const Comments = ({ slug }) => {
   return (
     <>
       <div className="my-4">
-        {commentsArray.map((item) => {
+        {commentsArray.map((item, index) => {
           return (
-            <div className="flex justify-left w-full border-2 px-8 py-2 rounded-full mb-2">
+            <div
+              key={index}
+              className="flex justify-left w-full border-2 px-8 py-2 rounded-full mb-2"
+            >
               <p className="font-bold mr-2">{item.name}</p>
               <p>{item.comment}</p>
             </div>
